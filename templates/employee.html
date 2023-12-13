@@ -1,25 +1,78 @@
-<h2>Data</h2>
-<ul>
-    {% for obj in data%}
-    <li>
-        {{obj.name}}-{{obj.address}}-{{obj.occupation}}-{{obj.id}}
-        <a href="/delete/{{obj.id}}/">Delete</a>
-        <a href="/update/{{obj.id}}/{{obj.name}}/">Name</a>
-        <form method="post" action="{% url 'employee-update' obj.id %}">
-            {% csrf_token %}
-            <button type="submit">Update</button>
-        </form>
-    </li>
-    {% endfor %}
-</ul>
+{% extends "base.html" %}
 
-<h2>form</h2>
-<form method="post"> 
-    {% csrf_token %}
-    {{form.as_p}}
-    <!-- <p>Name</p>{{form.name}}
-    <p>Address</p>{{form.address}}
-    <input type="text" value="{{form.occupation}}"> -->
-    <!-- <p>occupation</p>{{form.occupation}} -->
-    <button type="submit" name="submit">Submit</button>
-</form>
+{% load app_extras %}
+{% block code %}
+<div class =  row>
+    <div class  = "col">
+        <h2>Employee page</h2>
+    </div>
+    <div class = "col end">
+        <a href="{% url 'employee-class' %}"><button><h3>Home</h3></button></a>
+    </div>
+</div>
+
+<br><br>
+<div class="row">
+    <div class="col">
+        <h5>filter</h5>
+    </div>
+    <div class="col">
+        By name:
+        <input type="text" name="str">
+        <a href="">search</a>
+    </div>
+    <div class="col">
+        By address:
+        <input type="text">
+    </div>
+</div>
+<br><br>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Occupation</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Project</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for obj in data %}
+      <tr>
+        <td>{{obj.id}}</td>
+        <td>{{obj.name}}</td>
+        <td>{{obj.address}}</td>
+        <td>{{obj.occupation}}</td>
+        <td>{{obj.start_date}}</td>
+        <td>{{obj.end_date}}</td>
+        <td>-</td>
+        <td><a href = "/delete/{{obj.id}}/{{obj.name}}/"><button>Delete</button></a></td>
+        <td><a href = "/update/{{obj.id}}/{{obj.address}}/"><button>Update</button></a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+<br><br>
+<h2 class="container-fluid">Form</h2>
+<div class="container-fluid">
+    <form method="post"> 
+        {% csrf_token %}
+            {{form.as_p}}
+        <button type="submit" name="submit">Submit</button>
+    </form>
+</div>
+
+<br><br>
+<h5>Custom Tags here</h5>
+{% subtract 4 3 %}
+{% lower "Hello" %}
+{% cap_one 5 4 5 %}
+{% inc_test %}
+
+{% endblock %}

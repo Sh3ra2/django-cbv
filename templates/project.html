@@ -1,0 +1,9 @@
+{% for obj in data %}
+    <p>{{obj.name}}-{{obj.dev}}-{{obj.type}}-{{obj.duration}}-{{obj.client}}</p>
+{% endfor %}
+
+
+<form>
+    {% csrf_token %}
+    {{form.as_p}}
+</form>
