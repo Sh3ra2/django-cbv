@@ -1,9 +1,68 @@
+{% extends "base.html" %}
+
+{% block Title %}
+Projects
+{% endblock %}
+
+{% block code %}
+
+<div class="col">
+    By developer:
+    <input type="text"  id ="search">
+    <select name="cars" id="qtyp">
+        <option value="exact">exact</option>
+        <option value="iexact">iexact</option>
+        <option value="contains">contains</option>
+        <option value="icontains">icontains</option>
+        <option value="startswith">startswith</option>
+        <option value="isstartswith">isstartswith</option>
+        <option value="endswith">endswith</option>
+        <option value="iendswith">iendswith</option>
+        <option value="isnull">isnull</option>
+    </select>
+    <a href="#" onclick="searchh()">search</a>
+    <script>
+        function searchh(){
+            var inp = document.getElementById("search").value;
+            var typ = document.getElementById("qtyp").value
+            var url = "/pfilter/" +inp +"/"+ typ+"/"
+            window.location.href  = url;
+            console.log("se",url)
+        }
+    </script>
+</div>
+
+<div class="col">
+    By duration:
+    <input type="text"  id ="search">
+    <select name="cars" id="qtyp">
+        <option value="gt">exact</option>
+        <option value="gte">iexact</option>
+        <option value="lt">contains</option>
+        <option value="lte">icontains</option>
+    </select>
+    <a href="#" onclick="searchh()">search</a>
+    <script>
+        function searchh(){
+            var inp = document.getElementById("search").value;
+            var typ = document.getElementById("qtyp").value
+            var url = "/pfilter/" +inp +"/"+ typ+"/"
+            window.location.href  = url;
+            console.log("se",url)
+        }
+    </script>
+</div>
+
+
 {% for obj in data %}
     <p>{{obj.name}}-{{obj.dev}}-{{obj.type}}-{{obj.duration}}-{{obj.client}}</p>
 {% endfor %}
 
 
-<form>
+<form method = "post">
     {% csrf_token %}
     {{form.as_p}}
+    <button type = "submit">Save</button>
 </form>
+
+{% endblock %}

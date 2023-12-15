@@ -28,7 +28,7 @@ class projectmodel(models.Model):
 
 class clientmodel(models.Model):
     name = models.CharField(max_length=100, null=True)
-    project = models.ForeignKey(projectmodel, on_delete=models.CASCADE)
+    project = models.ForeignKey(projectmodel, on_delete=models.CASCADE, null = True, blank =  True)
     address = models.CharField(max_length=50, null=True)
     payment = models.IntegerField( null=True)
     method = models.CharField(max_length=50, null=True)

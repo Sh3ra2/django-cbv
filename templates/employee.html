@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 
 {% load app_extras %}
+{% block Title %}
+Employee
+{% endblock%}
+
 {% block code %}
-<div class =  row>
-    <div class  = "col">
-        <h2>Employee page</h2>
-    </div>
-    <div class = "col end">
-        <a href="{% url 'employee-class' %}"><button><h3>Home</h3></button></a>
-    </div>
-</div>
 
 <br><br>
 <div class="row">
@@ -18,12 +14,31 @@
     </div>
     <div class="col">
         By name:
-        <input type="text" name="str">
-        <a href="">search</a>
+        <input type="text"  id ="search">
+    
+        <a href="#" onclick="searchh()">search</a>
+        <script>
+            function searchh(){
+                var inp = document.getElementById("search").value;
+                var url = "/filter/" +inp +"/"
+                window.location.href  = url;
+                console.log("se",url)
+            }
+        </script>
     </div>
     <div class="col">
-        By address:
-        <input type="text">
+        By date:
+        <input type="date"  id ="datesearch">
+    
+        <a href="#" onclick="searchh()">search</a>
+        <script>
+            function searchh(){
+                var inp = document.getElementById("search").value;
+                var url = "/filter/" +inp +"/"
+                window.location.href  = url;
+                console.log("se",url)
+            }
+        </script>
     </div>
 </div>
 <br><br>
@@ -42,21 +57,41 @@
       </tr>
     </thead>
     <tbody>
-        {% for obj in data %}
+        {% for obj in zipped %}
       <tr>
-        <td>{{obj.id}}</td>
-        <td>{{obj.name}}</td>
-        <td>{{obj.address}}</td>
-        <td>{{obj.occupation}}</td>
-        <td>{{obj.start_date}}</td>
-        <td>{{obj.end_date}}</td>
-        <td>-</td>
+        <td>{{obj.emp.id}}</td>
+        <td>{{obj.emp.name}}</td>
+        <td>{{obj.emp.address}}</td>
+        <td>{{obj.emp.occupation}}</td>
+        <td>{{obj.emp.start_date}}</td>
+        <td>{{obj.emp.end_date}}</td>
+        <td>{{obj.pro.name}}</td>
         <td><a href = "/delete/{{obj.id}}/{{obj.name}}/"><button>Delete</button></a></td>
         <td><a href = "/update/{{obj.id}}/{{obj.address}}/"><button>Update</button></a></td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
+
+{% for obj in zipped %}
+  <ul>{{obj.pro.name}} - {{obj.pro.dev}} - {{obj.pro.duration}} - {{obj.client.name}}</ul>
+{% endfor %}
+
+{% for obj in query %}
+<td>{{obj.id}}</td>
+<td>{{objname}}</td>
+<td>{{obj.address}}</td>
+<td>{{obj.occupation}}</td>
+
+<td>{{obj.start_date}}</td>
+<td>{{obj.end_date}}</td>
+<br>
+{% endfor %}
+
+<h4>Projects here</h4>
+{% for project in query.project.all %}
+  {{project.name}}
+{% endfor %}
 
 <br><br>
 <h2 class="container-fluid">Form</h2>

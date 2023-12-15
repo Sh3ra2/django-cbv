@@ -24,6 +24,17 @@
     -->
   </body>
 </html>
+<div class =  row>
+  <div class  = "col">
+      <h2>{% block Title%}Employee page{% endblock %}</h2>
+  </div>
+  <div class = "col end">
+      <a href="{% url 'employee-class' %}"><button><h3>Home</h3></button></a>
+  </div>
+  <div class = "col end">
+      <a href="{% url 'project-class' %}"><button><h3>Projects</h3></button></a>
+  </div>
+</div>
 
 {% block code %}
 
